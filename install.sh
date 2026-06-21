@@ -133,6 +133,7 @@ show_installation_plan() {
     echo ""
     echo -e "  ${BOLD}Base${NC}        Xcode CLT, Homebrew"
     echo -e "  ${BOLD}Shell${NC}       Oh My ZSH + ${CYAN}autosuggestions${NC}, ${CYAN}syntax-highlighting${NC}, ${CYAN}completions${NC}, ${CYAN}history-search${NC}"
+    echo -e "  ${BOLD}Aliases${NC}     atalhos de navegacao/sistema + funcoes ${CYAN}clone${NC}, ${CYAN}mkcd${NC}"
     echo -e "  ${BOLD}Theme${NC}       Powerlevel10k + MesloLGS Nerd Font"
     echo -e "  ${BOLD}Utilities${NC}   fzf, bat, eza, ripgrep, fd, zoxide, delta, lazygit"
     echo ""
@@ -146,7 +147,7 @@ run_module() {
     local module_name="$2"
     local options="${3:-}"
 
-    ((CURRENT_STEP++))
+    CURRENT_STEP=$((CURRENT_STEP + 1))
 
     echo ""
     print_step "$CURRENT_STEP" "$TOTAL_STEPS" "Installing $module_name"
@@ -156,7 +157,7 @@ run_module() {
         print_error "Module not found: $module_path"
         FAILED_MODULES+=("$module_name")
         log "ERROR: Module not found: $module_path"
-        return 1
+        return 0
     fi
 
     # Run the module (never abort the installer on failure)
@@ -177,7 +178,7 @@ run_module() {
 # Installation Orchestration
 # =============================================================================
 calculate_steps() {
-    TOTAL_STEPS=16
+    TOTAL_STEPS=17
     if xcode-select -p &>/dev/null; then
         ((TOTAL_STEPS--))
     fi
@@ -206,6 +207,7 @@ run_installation() {
     ascii_section_header "Phase 2: Shell Framework" 50 "$BOLD_CYAN" "$DIM"
 
     run_module "${MODULES_SHELL}/oh-my-zsh.sh" "Oh My ZSH"
+    run_module "${MODULES_SHELL}/aliases.sh" "Shell Aliases"
 
     # Phase 3: Fonts
     # -------------------------------------------------------------------------
@@ -213,7 +215,7 @@ run_installation() {
     ascii_section_header "Phase 3: Fonts" 50 "$BOLD_CYAN" "$DIM"
 
     # Quick install MesloLGS specifically
-    ((CURRENT_STEP++))
+    CURRENT_STEP=$((CURRENT_STEP + 1))
     echo ""
     print_step "$CURRENT_STEP" "$TOTAL_STEPS" "Installing Nerd Fonts (MesloLGS)"
     log "Starting: Nerd Fonts"

@@ -111,8 +111,8 @@ show_status() {
         # Check for alias
         local zshrc_path
         zshrc_path="$(get_zshrc_path)"
-        if grep -q "alias lg=.*lazygit" "$zshrc_path" 2>/dev/null; then
-            print_success "lg alias configured"
+        if grep -q "alias lzg=.*lazygit" "$zshrc_path" 2>/dev/null; then
+            print_success "lzg alias configured"
         fi
     else
         echo -e "  ${ICON_ERROR} ${RED}Not installed${NC}"
@@ -157,10 +157,10 @@ configure() {
 
     mkdir -p "$config_dir"
 
-    # Add lg alias
-    print_info "Adding 'lg' alias for lazygit..."
-    add_alias_zshrc "lg" "lazygit" "lazygit: quick access"
-    print_success "Alias 'lg' added"
+    # Add lzg alias
+    print_info "Adding 'lzg' alias for lazygit..."
+    add_alias_zshrc "lzg" "lazygit" "lazygit: quick access"
+    print_success "Alias 'lzg' added"
 
     # Create config file
     if confirm "Create lazygit configuration file?" "y"; then
@@ -341,7 +341,7 @@ uninstall() {
     if uninstall_brew "lazygit"; then
         # Clean up shell configuration
         print_info "Cleaning up shell configuration..."
-        remove_from_zshrc "alias lg=.*lazygit" "pattern"
+        remove_from_zshrc "alias lzg=.*lazygit" "pattern"
 
         # Ask about config removal
         local config_dir="${HOME}/.config/lazygit"
@@ -440,7 +440,7 @@ main() {
     if [[ $exit_code -eq 0 && "$command" != "help" && "$command" != "status" ]]; then
         echo ""
         print_success "$MODULE_NAME operation complete!"
-        print_info "Run 'lg' in any git repository to start lazygit"
+        print_info "Run 'lzg' in any git repository to start lazygit"
         echo ""
     fi
 
