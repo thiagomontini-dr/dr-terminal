@@ -539,7 +539,8 @@ modules/
 │   ├── xcode-cli.sh      # Xcode Command Line Tools
 │   └── homebrew.sh       # Package manager
 ├── shell/
-│   └── oh-my-zsh.sh      # ZSH framework
+│   ├── oh-my-zsh.sh      # ZSH framework
+│   └── aliases.sh        # Productivity aliases and functions
 ├── fonts/
 │   └── nerd-fonts.sh     # Icon fonts
 ├── prompt/
