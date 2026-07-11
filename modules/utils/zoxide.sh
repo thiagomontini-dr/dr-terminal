@@ -178,6 +178,22 @@ configure() {
         print_info "Regular cd behavior is preserved, plus smart jumping"
     fi
 
+    # Seed the database so "cd <trecho>" ja funciona sem visitar cada pasta.
+    local seed_script="${PROJECT_ROOT}/scripts/seed-zoxide.sh"
+    if [[ -f "$seed_script" ]]; then
+        echo ""
+        print_info "Posso pre-popular o banco do zoxide com suas pastas de projetos"
+        echo -e "  ${DIM}Registra Projects, Desktop, Documents e Downloads e suas subpastas${NC}"
+        echo ""
+        if confirm "Pre-popular o historico do zoxide agora?" "y"; then
+            if bash "$seed_script"; then
+                print_success "Banco do zoxide pre-populado"
+            else
+                print_warning "Nao foi possivel pre-popular o banco do zoxide"
+            fi
+        fi
+    fi
+
     # Interactive mode with fzf
     if command_exists fzf; then
         echo ""

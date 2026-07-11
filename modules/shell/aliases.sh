@@ -124,6 +124,19 @@ alias week='date +%V'
 alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
 alias brewup='brew update && brew upgrade && brew cleanup'
 
+# Ajuda: abre o guia de plugins do Zsh no editor
+alias zshhelp='\${EDITOR:-cursor} "${PROJECT_ROOT}/docs/ZSH-PLUGINS.md"'
+
+# configclaude: faz backup datado do settings.json e abre no editor
+configclaude() {
+    local file="\$HOME/.claude/settings.json"
+    if [[ ! -f "\$file" ]]; then
+        echo "configclaude: \$file nao existe" >&2
+        return 1
+    fi
+    cp "\$file" "\${file}.bkp_\$(date +%Y%m%d_%H%M%S)" && \${EDITOR:-cursor} "\$file"
+}
+
 # git clone + cd para a pasta clonada
 clone() {
     if [[ -z "\${1:-}" ]]; then
@@ -212,6 +225,10 @@ configure() {
     echo -e "  ${BOLD}Manutencao${NC}"
     echo -e "    ${CYAN}flushdns${NC}    limpa cache DNS do macOS"
     echo -e "    ${CYAN}brewup${NC}      brew update + upgrade + cleanup"
+    echo ""
+    echo -e "  ${BOLD}Ajuda e config${NC}"
+    echo -e "    ${CYAN}zshhelp${NC}     abre o guia de plugins do Zsh"
+    echo -e "    ${CYAN}configclaude${NC}  backup datado do settings.json + abre no editor"
     echo ""
     echo -e "  ${BOLD}Funcoes${NC}"
     echo -e "    ${CYAN}clone <url>${NC}        git clone + cd para a pasta clonada"
