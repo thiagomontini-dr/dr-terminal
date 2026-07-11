@@ -34,7 +34,11 @@ readonly OMZ_UNINSTALL_URL="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/ma
 
 # Default configuration
 readonly DEFAULT_THEME="robbyrussell"
-readonly DEFAULT_PLUGINS="git"
+# Curated, correctly-ordered plugin list. Built-in Oh My ZSH plugins plus the
+# custom plugins installed by the modules under modules/plugins. ATENCAO:
+# zsh-syntax-highlighting e zsh-history-substring-search devem ser os dois
+# ultimos (nesta ordem), conforme a documentacao oficial.
+readonly DEFAULT_PLUGINS="git git-auto-fetch fzf macos sudo extract copypath copyfile copybuffer dirhistory web-search colored-man-pages command-not-found zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search"
 
 # =============================================================================
 # ASCII Art Header
@@ -357,12 +361,20 @@ ZSHRC
         echo "ZSH_THEME=\"${DEFAULT_THEME}\"" >> "$zshrc_path"
     fi
 
-    # Ensure plugins line exists
+    # Ensure plugins line exists and carries the curated default list.
     if ! grep -q "^plugins=(" "$zshrc_path"; then
-        print_info "Configuring default plugins: ${DEFAULT_PLUGINS}"
+        print_info "Configuring default plugins"
         echo "" >> "$zshrc_path"
         echo "# Oh My ZSH Plugins" >> "$zshrc_path"
         echo "plugins=(${DEFAULT_PLUGINS})" >> "$zshrc_path"
+    elif grep -qE "^plugins=\(git\)[[:space:]]*$" "$zshrc_path"; then
+        # Fresh install created the template default plugins=(git). Replace it
+        # with the curated list without touching a user-customized array.
+        print_info "Applying curated default plugins"
+        local temp_file
+        temp_file="$(mktemp)"
+        sed "s/^plugins=(git)[[:space:]]*$/plugins=(${DEFAULT_PLUGINS})/" "$zshrc_path" > "$temp_file"
+        mv "$temp_file" "$zshrc_path"
     fi
 
     # Ensure source $ZSH/oh-my-zsh.sh exists
