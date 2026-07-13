@@ -1,48 +1,48 @@
-# Plugins do Oh My Zsh
+# Oh My Zsh Plugins
 
-Guia rápido dos plugins ativados no `~/.zshrc`, com uma breve explicação e como usar cada um.
+Quick guide to the plugins enabled in `~/.zshrc`, with a short explanation of each one and how to use it.
 
-> Criado em: 2026-07-10
-> Última atualização: 2026-07-10
+> Created: 2026-07-10
+> Last updated: 2026-07-11
 
-> Observação: o `zoxide` (seção final) não é um plugin do Oh My Zsh, mas uma ferramenta à parte carregada manualmente no `~/.zshrc`. Está documentado aqui por conveniência.
+> Note: `zoxide` (final section) is not an Oh My Zsh plugin, but a separate tool loaded manually in `~/.zshrc`. It is documented here for convenience.
 
-A ordem de carregamento importa: `zsh-syntax-highlighting` e `zsh-history-substring-search` devem ser sempre os dois últimos (nesta ordem), conforme a documentação oficial.
+Load order matters: `zsh-syntax-highlighting` and `zsh-history-substring-search` must always be the last two (in this order), as stated in the official documentation.
 
-## Índice
+## Index
 
-| Plugin | Categoria | Resumo |
-|--------|-----------|--------|
-| git | Git | Aliases e funções para Git |
-| git-auto-fetch | Git | `git fetch` automático em segundo plano |
-| fzf | Busca | Integração com o fuzzy finder |
-| macos | Sistema | Utilitários específicos do macOS |
-| sudo | Sistema | Prefixa o comando com `sudo` (ESC ESC) |
-| extract | Arquivos | Extrai qualquer arquivo compactado com um comando |
-| copypath | Área de transferência | Copia o caminho atual |
-| copyfile | Área de transferência | Copia o conteúdo de um arquivo |
-| copybuffer | Área de transferência | Copia a linha de comando atual (Ctrl+O) |
-| dirhistory | Navegação | Navega no histórico de diretórios com Alt+setas |
-| web-search | Busca | Pesquisa na web direto do terminal |
-| colored-man-pages | Exibição | Colore as páginas do `man` |
-| command-not-found | Sistema | Sugere pacote quando o comando não existe |
-| zsh-completions | Completions | Completions extras para vários comandos |
-| zsh-autosuggestions | Produtividade | Sugestões baseadas no histórico enquanto digita |
-| zsh-syntax-highlighting | Exibição | Colore comandos válidos e inválidos ao digitar |
-| zsh-history-substring-search | Histórico | Busca no histórico por trecho digitado |
-| zoxide (externo) | Navegação | `cd` inteligente por trecho do nome da pasta |
+| Plugin | Category | Summary |
+|--------|----------|---------|
+| git | Git | Aliases and functions for Git |
+| git-auto-fetch | Git | Automatic `git fetch` in the background |
+| fzf | Search | Integration with the fuzzy finder |
+| macos | System | macOS-specific utilities |
+| sudo | System | Prefixes the command with `sudo` (ESC ESC) |
+| extract | Files | Extracts any compressed file with one command |
+| copypath | Clipboard | Copies the current path |
+| copyfile | Clipboard | Copies the contents of a file |
+| copybuffer | Clipboard | Copies the current command line (Ctrl+O) |
+| dirhistory | Navigation | Navigates directory history with Alt+arrows |
+| web-search | Search | Searches the web straight from the terminal |
+| colored-man-pages | Display | Colorizes `man` pages |
+| command-not-found | System | Suggests a package when the command does not exist |
+| zsh-completions | Completions | Extra completions for many commands |
+| zsh-autosuggestions | Productivity | History-based suggestions as you type |
+| zsh-syntax-highlighting | Display | Colorizes valid and invalid commands as you type |
+| zsh-history-substring-search | History | Searches history by typed substring |
+| zoxide (external) | Navigation | Smart `cd` by a fragment of the folder name |
 
 ---
 
-## Git e versionamento
+## Git and versioning
 
 ### git
 
-Fornece dezenas de aliases para Git. Os mais usados:
+Provides dozens of aliases for Git. The most used:
 
 - `gst` → `git status`
 - `gco` → `git checkout`
-- `gcb` → `git checkout -b` (cria e troca de branch)
+- `gcb` → `git checkout -b` (create and switch branch)
 - `gaa` → `git add --all`
 - `gcmsg "msg"` → `git commit -m "msg"`
 - `gp` → `git push`
@@ -50,195 +50,195 @@ Fornece dezenas de aliases para Git. Os mais usados:
 - `gd` → `git diff`
 - `glog` → `git log --oneline --decorate --graph`
 
-Listar todos: `alias | grep "='git"`.
+List all: `alias | grep "='git"`.
 
 ### git-auto-fetch
 
-Executa `git fetch` automaticamente em segundo plano enquanto você trabalha, mantendo o repositório atualizado com o remoto.
+Runs `git fetch` automatically in the background while you work, keeping the repository in sync with the remote.
 
-- Pausar temporariamente: `git-auto-fetch` (alterna ligado/desligado no diretório atual).
-- O intervalo padrão é de 60 segundos.
+- Pause temporarily: `git-auto-fetch` (toggles on/off in the current directory).
+- The default interval is 60 seconds.
 
 ---
 
-## Busca
+## Search
 
 ### fzf
 
-Integra o fuzzy finder ao shell.
+Integrates the fuzzy finder into the shell.
 
-- `Ctrl+R` → busca interativa no histórico de comandos.
-- `Ctrl+T` → insere arquivo/pasta selecionado na linha de comando.
-- `Alt+C` → entra (`cd`) em um diretório escolhido interativamente.
-- `comando **<TAB>` → completação fuzzy (ex.: `cd **<TAB>`, `vim **<TAB>`).
+- `Ctrl+R` → interactive search in the command history.
+- `Ctrl+T` → inserts the selected file/folder into the command line.
+- `Alt+C` → enters (`cd`) an interactively chosen directory.
+- `command **<TAB>` → fuzzy completion (e.g. `cd **<TAB>`, `vim **<TAB>`).
 
 ### web-search
 
-Pesquisa na web pelo terminal, abrindo o navegador.
+Searches the web from the terminal, opening the browser.
 
-- `google termo de busca`
-- `ddg termo` (DuckDuckGo)
-- `github repositorio`
-- `stackoverflow erro`
+- `google search term`
+- `ddg term` (DuckDuckGo)
+- `github repository`
+- `stackoverflow error`
 
 ---
 
-## Sistema
+## System
 
 ### macos
 
-Utilitários do macOS. Comandos úteis:
+macOS utilities. Useful commands:
 
-- `ofd` → abre o Finder no diretório atual.
-- `pfd` → imprime o caminho da janela do Finder em foco.
-- `cdf` → entra no diretório aberto no Finder.
-- `showfiles` / `hidefiles` → mostra/esconde arquivos ocultos no Finder.
-- `rmdsstore` → remove arquivos `.DS_Store` recursivamente.
+- `ofd` → opens Finder in the current directory.
+- `pfd` → prints the path of the focused Finder window.
+- `cdf` → enters the directory currently open in Finder.
+- `showfiles` / `hidefiles` → shows/hides hidden files in Finder.
+- `rmdsstore` → removes `.DS_Store` files recursively.
 
 ### sudo
 
-Pressione `ESC` duas vezes para adicionar (ou remover) `sudo` no início da linha de comando atual. Útil quando um comando falha por falta de permissão.
+Press `ESC` twice to add (or remove) `sudo` at the start of the current command line. Useful when a command fails for lack of permission.
 
 ### command-not-found
 
-Quando você digita um comando que não existe, sugere o pacote (Homebrew) que o fornece.
+When you type a command that does not exist, it suggests the package (Homebrew) that provides it.
 
 ---
 
-## Arquivos e área de transferência
+## Files and clipboard
 
 ### extract
 
-Extrai qualquer arquivo compactado com um único comando, sem lembrar as flags de cada formato.
+Extracts any compressed file with a single command, without remembering the flags of each format.
 
-- `extract arquivo.tar.gz`
-- `extract arquivo.zip`
-- Suporta `.tar`, `.gz`, `.bz2`, `.zip`, `.rar`, `.7z`, entre outros.
+- `extract file.tar.gz`
+- `extract file.zip`
+- Supports `.tar`, `.gz`, `.bz2`, `.zip`, `.rar`, `.7z`, among others.
 
 ### copypath
 
-- `copypath` → copia o caminho absoluto do diretório atual para a área de transferência.
-- `copypath arquivo.txt` → copia o caminho do arquivo indicado.
+- `copypath` → copies the absolute path of the current directory to the clipboard.
+- `copypath file.txt` → copies the path of the given file.
 
 ### copyfile
 
-- `copyfile arquivo.txt` → copia o conteúdo do arquivo para a área de transferência.
+- `copyfile file.txt` → copies the contents of the file to the clipboard.
 
 ### copybuffer
 
-- `Ctrl+O` → copia a linha de comando que está sendo digitada para a área de transferência.
+- `Ctrl+O` → copies the command line currently being typed to the clipboard.
 
 ---
 
-## Navegação
+## Navigation
 
 ### dirhistory
 
-Navega pelo histórico de diretórios visitados com o teclado:
+Navigates the history of visited directories with the keyboard:
 
-- `Alt+←` / `Alt+→` → volta/avança no histórico de diretórios.
-- `Alt+↑` → sobe um nível (diretório pai).
-- `Alt+↓` → desce para um subdiretório recém-visitado.
+- `Alt+←` / `Alt+→` → go back/forward in the directory history.
+- `Alt+↑` → go up one level (parent directory).
+- `Alt+↓` → go down into a recently visited subdirectory.
 
 ---
 
-## Exibição
+## Display
 
 ### colored-man-pages
 
-Aplica cores às páginas de manual, facilitando a leitura. Basta usar `man comando` normalmente.
+Applies colors to manual pages, making them easier to read. Just use `man command` as usual.
 
 ### zsh-syntax-highlighting
 
-Colore os comandos enquanto você digita:
+Colorizes commands as you type:
 
-- Verde → comando válido/encontrado.
-- Vermelho → comando inexistente ou com erro de sintaxe.
+- Green → valid/found command.
+- Red → nonexistent command or syntax error.
 
-Ajuda a identificar erros antes de pressionar Enter. Não requer configuração.
+Helps you spot errors before pressing Enter. Requires no configuration.
 
 ---
 
-## Produtividade e histórico
+## Productivity and history
 
 ### zsh-completions
 
-Adiciona completions (sugestões com `TAB`) para centenas de comandos e ferramentas que o Zsh não cobre por padrão. Uso transparente: apenas pressione `TAB`.
+Adds completions (suggestions with `TAB`) for hundreds of commands and tools that Zsh does not cover by default. Transparent to use: just press `TAB`.
 
 ### zsh-autosuggestions
 
-Enquanto você digita, sugere em cinza-claro o comando mais provável com base no histórico.
+As you type, it suggests in light gray the most likely command based on your history.
 
-- `→` (seta direita) ou `End` → aceita a sugestão completa.
-- `Ctrl+→` → aceita apenas a próxima palavra da sugestão.
+- `→` (right arrow) or `End` → accept the full suggestion.
+- `Ctrl+→` → accept only the next word of the suggestion.
 
 ### zsh-history-substring-search
 
-Busca no histórico por um trecho digitado. Digite parte de um comando e navegue pelas ocorrências:
+Searches history by a typed substring. Type part of a command and navigate through the matches:
 
-- `Ctrl+P` → resultado anterior (configurado no `.zshrc`).
-- `Ctrl+N` → próximo resultado (configurado no `.zshrc`).
-- No modo vi: `k` / `j` em modo comando.
+- `Ctrl+P` → previous result (configured in `.zshrc`).
+- `Ctrl+N` → next result (configured in `.zshrc`).
+- In vi mode: `k` / `j` in command mode.
 
-Está configurado para retornar apenas resultados únicos (`HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1`).
+It is configured to return only unique results (`HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1`).
 
 ---
 
-## Ferramenta externa
+## External tool
 
 ### zoxide
 
-Não é um plugin do Oh My Zsh, mas uma ferramenta à parte carregada no final do `~/.zshrc`:
+Not an Oh My Zsh plugin, but a separate tool loaded at the end of `~/.zshrc`:
 
 ```bash
 eval "$(zoxide init zsh --cmd cd)"
 ```
 
-Por causa de `--cmd cd`, neste setup o zoxide substitui o próprio `cd` (não usa o comando `z`). Ele memoriza as pastas visitadas e permite voltar a elas digitando apenas um trecho do nome.
+Because of `--cmd cd`, in this setup zoxide replaces `cd` itself (it does not use the `z` command). It memorizes visited folders and lets you return to them by typing just a fragment of the name.
 
-Como funciona: entre em uma pasta uma vez pelo caminho completo; depois ela fica disponível como atalho de qualquer lugar.
+How it works: enter a folder once by its full path; afterward it becomes available as a shortcut from anywhere.
 
 ```bash
-cd ~/projetos/dr-terminal   # primeira visita, caminho normal
-cd terminal                 # depois, pula direto para ~/projetos/dr-terminal
+cd ~/projects/dr-terminal   # first visit, normal path
+cd terminal                 # afterward, jump straight to ~/projects/dr-terminal
 ```
 
-Comandos e truques:
+Commands and tricks:
 
-- `cd trecho` → vai para a melhor pasta que casa com o trecho.
-- `cd foo bar` → casa com `foo` e `bar` no caminho ao mesmo tempo.
-- `cdi trecho` → modo interativo: abre uma lista (fzf) para escolher.
-- `cd -` → volta para a pasta anterior.
-- `cd` (sozinho) → vai para a home, como o `cd` tradicional.
+- `cd fragment` → go to the best folder matching the fragment.
+- `cd foo bar` → match `foo` and `bar` in the path at the same time.
+- `cdi fragment` → interactive mode: opens a list (fzf) to choose.
+- `cd -` → go back to the previous folder.
+- `cd` (alone) → go to home, like the traditional `cd`.
 
-O ranking usa "frecency" (frequência de uso + quão recente foi o acesso): quanto mais você usa uma pasta, mais fácil chegar nela.
+The ranking uses "frecency" (frequency of use + how recent the access was): the more you use a folder, the easier it is to reach.
 
-Limitação: o zoxide só encontra pastas que você já visitou pelo menos uma vez. Pastas novas precisam ser acessadas pelo caminho completo antes de virarem atalho.
+Limitation: zoxide only finds folders you have already visited at least once. New folders must be accessed by their full path before they become shortcuts.
 
-#### Popular o histórico de uma vez (máquina nova)
+#### Seed the history at once (new machine)
 
-Para não precisar visitar cada pasta manualmente, o repositório inclui o script `scripts/seed-zoxide.sh`, que registra as pastas-pai indicadas e todas as suas subpastas de primeiro nível no banco do zoxide.
+To avoid visiting each folder manually, the repository includes the script `scripts/seed-zoxide.sh`, which registers the given parent folders and all their first-level subfolders in the zoxide database.
 
 ```bash
-# pastas padrão: Projects, Desktop, Documents, Downloads
+# default folders: Projects, Desktop, Documents, Downloads
 ./scripts/seed-zoxide.sh
 
-# ou informando suas próprias pastas-pai
+# or providing your own parent folders
 ./scripts/seed-zoxide.sh Projects Work ~/dev /opt/apps
 ```
 
-Os caminhos podem ser relativos à `HOME` (`Projects`), com `~` (`~/dev`) ou absolutos (`/opt/apps`). Pastas inexistentes na máquina são ignoradas, então a mesma lista funciona em máquinas diferentes. O script usa `zoxide add` (método interno do zoxide) e exige que o zoxide já esteja instalado.
+Paths can be relative to `HOME` (`Projects`), use `~` (`~/dev`), or be absolute (`/opt/apps`). Folders that do not exist on the machine are ignored, so the same list works across different machines. The script uses `zoxide add` (zoxide's internal method) and requires zoxide to be already installed.
 
-Depois de rodar, todas as subpastas começam com o mesmo peso (frecency); conforme você usa, as mais frequentes sobem no ranking.
+After running it, all subfolders start with the same weight (frecency); as you use them, the most frequent ones rise in the ranking.
 
 ---
 
-## Aplicar mudanças
+## Apply changes
 
-Após editar o `~/.zshrc`, recarregue com:
+After editing `~/.zshrc`, reload with:
 
 ```bash
 reload
-# ou
+# or
 source ~/.zshrc
 ```

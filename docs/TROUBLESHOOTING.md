@@ -104,10 +104,10 @@ This guide covers installation problems, configuration issues, and common errors
 
 3. **Don't run installer with sudo:**
    ```bash
-   # ❌ Wrong
+   # Wrong
    sudo ./install.sh
 
-   # ✅ Correct
+   # Correct
    ./install.sh
    ```
 
@@ -298,8 +298,8 @@ This guide covers installation problems, configuration issues, and common errors
 1. **Ensure you're using Nerd Font variant:**
    ```bash
    # Must select the "NF" (Nerd Font) variant
-   # ✅ "MesloLGS NF"
-   # ❌ "MesloLGS"
+   # Correct:   "MesloLGS NF"
+   # Incorrect: "MesloLGS"
    ```
 
 2. **Check font size:**
@@ -1206,7 +1206,7 @@ This guide covers installation problems, configuration issues, and common errors
 
 ### Complete Uninstallation
 
-**Remove everything installed by the gallery:**
+**Remove everything installed by DR Custom Terminal:**
 
 1. **Uninstall Oh My ZSH:**
    ```bash
@@ -1290,7 +1290,7 @@ uname -m
 ## Frequently Asked Questions
 
 ### Q: Can I use this on Linux?
-**A:** This toolkit is designed specifically for macOS. For Linux, you'd need to adapt the installer to use apt/yum instead of Homebrew, and adjust paths accordingly.
+**A:** This toolkit is designed for macOS. For Linux, you would need to adapt the installer to use apt/yum instead of Homebrew and adjust paths accordingly.
 
 ### Q: Will this work with bash instead of zsh?
 **A:** The installer is designed for ZSH. Most tools work with bash, but Oh My ZSH and Powerlevel10k are ZSH-specific.
@@ -1309,7 +1309,7 @@ brew upgrade
 ```
 
 ### Q: Will this slow down my terminal?
-**A:** No. With Powerlevel10k's instant prompt, your terminal will be ready in milliseconds. The installer optimizes for performance.
+**A:** Minimally. With Powerlevel10k's instant prompt enabled, your terminal will typically be ready in milliseconds. The installer is optimized for performance.
 
 ### Q: Can I customize the Powerlevel10k theme?
 **A:** Absolutely! Run `p10k configure` anytime to customize, or edit `~/.p10k.zsh` directly.
@@ -1375,6 +1375,6 @@ If you're still experiencing problems:
 
 ---
 
-**Last Updated:** 2025-01-01
+**Last Updated:** 2026-07-11
 
-**Happy Terminal Customizing! 🚀**
+For additional help, see the resources listed above.
