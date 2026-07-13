@@ -5,38 +5,52 @@
   <img src="https://img.shields.io/badge/Version-1.1.0-purple?style=for-the-badge" alt="Version">
 </p>
 
+<p align="center">
+  <b>English</b> •
+  <a href="README.pt-BR.md">Português</a>
+</p>
+
 <h1 align="center">
   <br>
   DR Custom Terminal
   <br>
 </h1>
 
-<h4 align="center">Automated terminal customization and configuration toolkit for macOS.</h4>
+<h4 align="center">Transform your macOS terminal from basic to brilliant in minutes.</h4>
 
 <p align="center">
-  <a href="#-início-rápido">Início Rápido</a> •
-  <a href="#-o-que-será-instalado">Componentes</a> •
-  <a href="#-ferramentas-incluídas">Ferramentas</a> •
-  <a href="#-guia-de-uso">Guia de Uso</a> •
-  <a href="#-estrutura-do-projeto">Estrutura</a>
+  <a href="#quick-start">Quick Start</a> •
+  <a href="#whats-included">Components</a> •
+  <a href="#included-tools">Tools</a> •
+  <a href="#post-installation">Usage Guide</a> •
+  <a href="#project-structure">Structure</a>
 </p>
 
 ---
 
-## Sobre
+## What is This Project?
 
-O **DR Custom Terminal** é um toolkit modular completo para personalizar seu terminal macOS. Ele instala e configura automaticamente um conjunto de ferramentas e configurações que transformam o terminal padrão em um ambiente de desenvolvimento produtivo com shell moderno, temas de prompt, fontes com ícones e utilitários CLI de alto desempenho.
+**DR Custom Terminal** is a complete modular toolkit for customizing your macOS terminal. It automatically installs and configures:
 
-O instalador gerencia os seguintes componentes:
+- **Shell Framework** - Oh My ZSH with powerful plugins
+- **Icon Fonts** - Nerd Fonts for rich visuals
+- **Prompt Themes** - Powerlevel10k or Starship
+- **Modern CLI Tools** - Superior replacements for classic commands
 
-- **Shell Framework** - Oh My ZSH com plugins poderosos
-- **Fontes com Ícones** - Nerd Fonts para suporte a caracteres especiais
-- **Temas de Prompt** - Powerlevel10k ou Starship
-- **Ferramentas CLI Modernas** - Substitutos de alto desempenho para comandos clássicos do Unix
+### Why use it?
+
+| Problem | Solution |
+|---------|----------|
+| Ugly, colorless terminal | Beautiful themes + syntax highlighting |
+| Basic `ls` with no info | `eza` with icons, colors, and Git status |
+| `cat` without code highlighting | `bat` with syntax highlighting |
+| Slow file searching | `fd` + `fzf` = instant search |
+| Hard to navigate history | Fuzzy search with `CTRL-R` |
+| Git on command line is tedious | `lazygit` with visual interface |
 
 ---
 
-## Início Rápido
+## Quick Start
 
 ```bash
 git clone https://github.com/yourusername/terminal-customization.git && cd terminal-customization && ./install.sh
@@ -44,49 +58,48 @@ git clone https://github.com/yourusername/terminal-customization.git && cd termi
 
 ---
 
-## O que será instalado
+## What's Included
 
-O instalador configura automaticamente todos os componentes abaixo:
+The installer automatically configures all components below:
 
 ```
-Base Components          Shell e Prompt            Plugins ZSH
+Base Components          Shell & Prompt            ZSH Plugins
   Xcode CLI Tools          Oh My ZSH                autosuggestions
   Homebrew                 MesloLGS Nerd Font       syntax-highlighting
                            Powerlevel10k            completions
                                                     history-search
 
 CLI Utilities
-  fzf        Fuzzy finder             bat        Syntax highlighting
-  eza        Modern ls                ripgrep    Fast search
-  fd         File finder              zoxide     Smart navigation
-  delta      Diff viewer              lazygit    Git TUI
+  fzf        Fuzzy search         bat     Better cat
+  eza        Modern ls            ripgrep Fast grep
+  fd         Simple find          zoxide  Smart cd
+  delta      Beautiful diff       lazygit Visual Git
 ```
 
 ---
 
-## Ferramentas Incluídas
+## Included Tools
 
-### Shell e Prompt
+### Shell and Prompt
 
 <table>
 <tr>
 <td width="50%">
 
 #### Oh My ZSH
+Configuration framework for ZSH with 300+ plugins and themes.
 
-Framework de configuração para ZSH com 300+ plugins e temas.
+**What it does:**
+- Manages plugins and themes
+- Provides useful aliases
+- Automatic updates
 
-**O que faz:**
-- Gerencia plugins e temas
-- Fornece aliases úteis
-- Auto-updates automáticos
-
-**Como usar:**
+**How to use:**
 ```bash
-# Ver plugins ativos
+# View active plugins
 echo $plugins
 
-# Atualizar Oh My ZSH
+# Update Oh My ZSH
 omz update
 ```
 
@@ -94,20 +107,19 @@ omz update
 <td width="50%">
 
 #### Powerlevel10k
+Extremely fast and customizable prompt theme.
 
-Tema de prompt extremamente rápido e customizável.
+**What it does:**
+- Shows current Git branch
+- Indicates last command status
+- Displays project language/version
 
-**O que faz:**
-- Mostra branch Git atual
-- Indica status do último comando
-- Exibe linguagem/versão do projeto
-
-**Como usar:**
+**How to use:**
 ```bash
-# Configurar visual do prompt
+# Configure prompt appearance
 p10k configure
 
-# Editar configuração
+# Edit configuration
 nano ~/.p10k.zsh
 ```
 
@@ -117,66 +129,66 @@ nano ~/.p10k.zsh
 
 ---
 
-### Busca e Navegação
+### Search and Navigation
 
 <table>
 <tr>
 <td width="50%">
 
-#### fzf
+#### fzf - Fuzzy Finder
+Interactive search for anything.
 
-Busca interativa para arquivos, histórico de comandos e listas.
+**What it does:**
+- Search files instantly
+- Navigate command history
+- Filter any list
 
-**O que faz:**
-- Busca arquivos instantaneamente
-- Navega no histórico de comandos
-- Filtra qualquer lista
+**Shortcuts:**
+| Key | Action |
+|-----|--------|
+| `CTRL-R` | Search history |
+| `CTRL-T` | Search files |
+| `ALT-C` | Navigate to folder |
 
-**Atalhos:**
-| Tecla | Ação |
-|-------|------|
-| `CTRL-R` | Buscar no histórico |
-| `CTRL-T` | Buscar arquivos |
-| `ALT-C` | Navegar para pasta |
-
-**Exemplos:**
+**Examples:**
 ```bash
-# Buscar e abrir arquivo no vim
+# Search and open file in vim
 vim $(fzf)
 
-# Buscar no histórico
-CTRL-R → digite parte do comando
+# Search in history
+CTRL-R → type part of command
 
-# Preview de arquivos
+# File preview
 fzf --preview 'bat {}'
 ```
 
 </td>
 <td width="50%">
 
-#### zoxide
+#### zoxide - Smart CD
+Directory navigation that learns your habits.
 
-Navegação de diretórios inteligente que aprende seus hábitos de uso.
+**What it does:**
+- Remembers visited directories
+- Jumps to folders by partial name
+- Ranks directories by usage frequency
 
-**O que faz:**
-- Lembra diretórios visitados
-- Pula para pastas por nome parcial
-- Ranking por frequência de uso
-
-**Exemplos:**
+**Examples:**
 ```bash
-# Ir para ~/Projects/my-app
+# Go to ~/Projects/my-app
 z my-app
 
-# Ir para ~/Documents/work/reports
+# Go to ~/Documents/work/reports
 z reports
 
-# Seleção interativa
+# Interactive selection
 zi
 
-# Ver diretórios mais usados
+# View most used directories
 zoxide query -l
 ```
+
+**Tip:** After using it, `z` knows where you want to go!
 
 </td>
 </tr>
@@ -184,72 +196,70 @@ zoxide query -l
 
 ---
 
-### Visualização de Arquivos
+### File Viewing
 
 <table>
 <tr>
 <td width="50%">
 
-#### bat
+#### bat - Cat with Superpowers
+File viewer with syntax highlighting.
 
-Visualizador de arquivos com syntax highlighting automático.
+**What it does:**
+- Automatic syntax highlighting
+- Line numbers
+- Git integration (shows changes)
+- Automatic pagination
 
-**O que faz:**
-- Destaque de sintaxe automático
-- Números de linha
-- Integração com Git (mostra alterações)
-- Paginação automática
-
-**Exemplos:**
+**Examples:**
 ```bash
-# Ver arquivo com destaque
-bat arquivo.js
+# View file with highlighting
+bat file.js
 
-# Ver diferenças do Git
-bat --diff arquivo.js
+# View Git differences
+bat --diff file.js
 
-# Mostrar apenas linhas 10-20
-bat -r 10:20 arquivo.py
+# Show only lines 10-20
+bat -r 10:20 file.py
 
-# Tema diferente
-bat --theme="Dracula" arquivo.rs
+# Different theme
+bat --theme="Dracula" file.rs
 
-# Listar temas disponíveis
+# List available themes
 bat --list-themes
 ```
 
 </td>
 <td width="50%">
 
-#### eza
+#### eza - Modern LS
+`ls` replacement with colors, icons, and more.
 
-Substituto moderno do `ls` com cores, ícones e informações Git.
+**What it does:**
+- Icons for file types
+- Colors by type/permission
+- Integrated Git status
+- Tree view
 
-**O que faz:**
-- Ícones para tipos de arquivo
-- Cores por tipo/permissão
-- Status Git integrado
-- Vista em árvore
-
-**Exemplos:**
+**Examples:**
 ```bash
-# Lista detalhada com ícones
+# Detailed list with icons
 eza -la
 
-# Vista em árvore (2 níveis)
+# Tree view (2 levels)
 eza --tree --level=2
 
-# Com status Git
+# With Git status
 eza -la --git
 
-# Ordenar por modificação
+# Sort by modification
 eza -la --sort=modified
 
-# Apenas diretórios
+# Directories only
 eza -la --only-dirs
 ```
 
-**Aliases úteis (já configurados):**
+**Useful aliases (already configured):**
 ```bash
 ll    # eza -la
 la    # eza -a
@@ -262,80 +272,78 @@ lt    # eza --tree
 
 ---
 
-### Busca em Arquivos
+### File Search
 
 <table>
 <tr>
 <td width="50%">
 
-#### ripgrep
+#### ripgrep (rg) - Ultra-fast Grep
+File search 10x faster than grep.
 
-Busca recursiva em arquivos com suporte a regex e performance otimizada.
+**What it does:**
+- Recursive search by default
+- Ignores .gitignore automatically
+- Regex support
+- Match highlighting
 
-**O que faz:**
-- Busca recursiva por padrão
-- Ignora .gitignore automaticamente
-- Suporte a regex
-- Destaque de matches
-
-**Exemplos:**
+**Examples:**
 ```bash
-# Buscar "TODO" em todos arquivos
+# Search "TODO" in all files
 rg "TODO"
 
-# Buscar em tipo específico
+# Search in specific type
 rg "import" --type js
 
 # Case insensitive
 rg -i "error"
 
-# Mostrar contexto (3 linhas)
+# Show context (3 lines)
 rg -C 3 "function"
 
-# Buscar palavra exata
+# Search exact word
 rg -w "test"
 
-# Contar ocorrências
+# Count occurrences
 rg -c "console.log"
 
-# Listar arquivos que contêm
+# List files that contain
 rg -l "useState"
 ```
 
 </td>
 <td width="50%">
 
-#### fd
+#### fd - Simplified Find
+Alternative to `find` with friendly syntax.
 
-Alternativa simplificada ao comando `find` com sintaxe intuitiva.
+**What it does:**
+- Simple and intuitive syntax
+- Ignores .gitignore automatically
+- Colorized output
+- Much faster than `find`
 
-**O que faz:**
-- Sintaxe simples e intuitiva
-- Ignora .gitignore automaticamente
-- Busca colorida
-- Muito mais rápido que `find`
-
-**Exemplos:**
+**Examples:**
 ```bash
-# Buscar por nome
+# Search by name
 fd "readme"
 
-# Buscar por extensão
+# Search by extension
 fd -e js
 
-# Buscar apenas diretórios
+# Search directories only
 fd -t d "src"
 
-# Buscar arquivos ocultos
+# Search hidden files
 fd -H ".env"
 
-# Executar comando em resultados
+# Execute command on results
 fd -e jpg -x convert {} {.}.png
 
-# Buscar com regex
+# Search with regex
 fd "^test.*\.js$"
 
-# Excluir diretório
+# Exclude directory
 fd -E node_modules "config"
 ```
 
@@ -345,70 +353,68 @@ fd -E node_modules "config"
 
 ---
 
-### Git Avançado
+### Advanced Git
 
 <table>
 <tr>
 <td width="50%">
 
-#### delta
+#### delta - Beautiful Diff
+Git diffs with syntax highlighting.
 
-Visualizador de diffs do Git com syntax highlighting por linguagem.
+**What it does:**
+- Colors by language
+- Line numbers
+- Side-by-side navigation
+- Git integration
 
-**O que faz:**
-- Cores por linguagem
-- Números de linha
-- Navegação lado a lado
-- Integração automática com Git
-
-**Já configurado automaticamente!**
+**Configured automatically!**
 
 ```bash
-# Ver diff com cores
+# View diff with colors
 git diff
 
-# Ver log com diff
+# View log with diff
 git log -p
 
-# Comparar branches
+# Compare branches
 git diff main..feature
 ```
 
-**Recursos visuais:**
-- Linhas adicionadas em verde
-- Linhas removidas em vermelho
-- Destaque de sintaxe da linguagem
+**Visual features:**
+- Added lines in green
+- Removed lines in red
+- Language syntax highlighting
 
 </td>
 <td width="50%">
 
-#### lazygit
+#### lazygit - Visual Git
+Complete TUI for Git.
 
-Interface TUI (Text User Interface) completa para operações Git.
+**What it does:**
+- Visual stage/unstage
+- Interactive commits
+- Branch navigation
+- Conflict resolution
+- Cherry-pick, rebase, etc.
 
-**O que faz:**
-- Stage/unstage visual
-- Commits interativos
-- Navegação de branches
-- Resolução de conflitos
-- Cherry-pick, rebase, merge
-
-**Como usar:**
+**How to use:**
 ```bash
-# Abrir interface
+# Open interface
 lazygit
 ```
 
-**Atalhos principais:**
-| Tecla | Ação |
-|-------|------|
-| `Space` | Stage/unstage arquivo |
+**Main shortcuts:**
+| Key | Action |
+|-----|--------|
+| `Space` | Stage/unstage file |
 | `c` | Commit |
 | `p` | Push |
 | `P` | Pull |
-| `b` | Ver branches |
-| `?` | Ajuda |
-| `q` | Sair |
+| `b` | View branches |
+| `?` | Help |
+| `q` | Quit |
 
 </td>
 </tr>
@@ -416,59 +422,60 @@ lazygit
 
 ---
 
-### Sistema e Monitoramento
+### System and Monitoring
 
 <table>
 <tr>
 <td width="50%">
 
-#### btop
+#### btop - Resource Monitor
+System monitor with graphical terminal interface.
 
-Monitor de recursos do sistema com interface gráfica no terminal.
+**What it does:**
+- CPU, RAM, Disk, Network
+- Real-time graphs
+- Process list
+- Kill processes
 
-**O que faz:**
-- CPU, RAM, Disco, Rede
-- Gráficos em tempo real
-- Lista de processos
-- Kill de processos
-
-**Como usar:**
+**How to use:**
 ```bash
-# Abrir monitor
+# Open monitor
 btop
 ```
 
-**Atalhos:**
-| Tecla | Ação |
-|-------|------|
+**Shortcuts:**
+| Key | Action |
+|-----|--------|
 | `m` | Menu |
-| `k` | Kill processo |
-| `f` | Filtrar |
-| `q` | Sair |
+| `k` | Kill process |
+| `f` | Filter |
+| `q` | Quit |
 
 </td>
 <td width="50%">
 
-#### neofetch
+#### neofetch - System Info
+Displays system information with style.
 
-Exibe informações do sistema com formatação visual.
+**What it does:**
+- macOS logo in ASCII
+- System version
+- Hardware specs
+- Uptime, packages, shell
 
-**O que faz:**
-- Logo do macOS em ASCII
-- Versão do sistema
-- Hardware
-- Uptime, pacotes, shell
-
-**Como usar:**
+**How to use:**
 ```bash
-# Mostrar info
+# Show info
 neofetch
 
-# Com logo pequeno
+# With small logo
 neofetch --ascii_distro mac_small
 ```
 
-Para adicionar ao startup do terminal, veja a seção de pós-instalação.
+**Tip:** Add to `.zshrc` to run on every terminal startup:
+```bash
+echo "neofetch" >> ~/.zshrc
+```
 
 </td>
 </tr>
@@ -476,72 +483,72 @@ Para adicionar ao startup do terminal, veja a seção de pós-instalação.
 
 ---
 
-### Plugins ZSH
+### ZSH Plugins
 
-| Plugin | O que faz | Como funciona |
-|--------|-----------|---------------|
-| **autosuggestions** | Sugere comandos baseado no histórico | Digite e veja sugestão em cinza, `→` para aceitar |
-| **syntax-highlighting** | Colore comandos em tempo real | Vermelho = erro, verde = válido |
-| **completions** | Autocomplete avançado | `Tab` para ver opções |
-| **history-substring-search** | Busca no histórico por substring | `↑` `↓` após digitar parte do comando |
+| Plugin | What it does | How it works |
+|--------|--------------|--------------|
+| **autosuggestions** | Suggests commands based on history | Type and see suggestion in gray, `→` to accept |
+| **syntax-highlighting** | Colors commands in real-time | Red = error, green = valid |
+| **completions** | Advanced autocomplete | `Tab` to see options |
+| **history-substring-search** | Search history by substring | `↑` `↓` after typing part of command |
 
 ---
 
-## Temas de Cores
+## Color Themes
 
-Instale temas de cores para seu terminal:
+Install color themes for your terminal:
 
 ```bash
-# Dracula - Roxo escuro elegante
+# Dracula - Elegant dark purple
 ./themes/color-schemes/dracula.sh
 
-# Catppuccin - Tons pastel suaves
+# Catppuccin - Soft pastel tones
 ./themes/color-schemes/catppuccin.sh
 
-# Gruvbox - Retro quente
+# Gruvbox - Warm retro tones
 ./themes/color-schemes/gruvbox.sh
 
-# Nord - Azul ártico
+# Nord - Arctic blue
 ./themes/color-schemes/nord.sh
 ```
 
 ---
 
-## Gerenciamento de Módulos
+## Module Management
 
-Cada módulo pode ser gerenciado individualmente:
+Each module can be managed individually:
 
 ```bash
-# Comandos disponíveis para cada módulo
+# Available commands for each module
 
-# Instalar
+# Install
 ./modules/utils/fzf.sh install
 
-# Ver status
+# View status
 ./modules/utils/fzf.sh status
 
-# Desinstalar
+# Uninstall
 ./modules/utils/fzf.sh uninstall
 
-# Ajuda
+# Help
 ./modules/utils/fzf.sh help
 ```
 
-### Módulos Disponíveis
+### Available Modules
 
 ```
 modules/
 ├── base/
 │   ├── xcode-cli.sh      # Xcode Command Line Tools
-│   └── homebrew.sh       # Gerenciador de pacotes
+│   └── homebrew.sh       # Package manager
 ├── shell/
-│   ├── oh-my-zsh.sh      # Framework ZSH
-│   └── aliases.sh        # Aliases e funcoes de produtividade
+│   ├── oh-my-zsh.sh      # ZSH framework
+│   └── aliases.sh        # Productivity aliases and functions
 ├── fonts/
-│   └── nerd-fonts.sh     # Fontes com ícones
+│   └── nerd-fonts.sh     # Icon fonts
 ├── prompt/
-│   ├── powerlevel10k.sh  # Tema de prompt
-│   └── starship.sh       # Prompt alternativo
+│   ├── powerlevel10k.sh  # Prompt theme
+│   └── starship.sh       # Alternative prompt
 ├── plugins/
 │   ├── zsh-autosuggestions.sh
 │   ├── zsh-syntax-highlighting.sh
@@ -549,79 +556,77 @@ modules/
 │   └── zsh-history-substring-search.sh
 └── utils/
     ├── fzf.sh            # Fuzzy finder
-    ├── bat.sh            # Syntax highlighting
+    ├── bat.sh            # Improved cat
     ├── eza.sh            # Modern ls
-    ├── ripgrep.sh        # Fast search
-    ├── fd.sh             # File finder
-    ├── zoxide.sh         # Smart navigation
-    ├── delta.sh          # Diff viewer
-    ├── lazygit.sh        # Git TUI
+    ├── ripgrep.sh        # Fast grep
+    ├── fd.sh             # Simple find
+    ├── zoxide.sh         # Smart cd
+    ├── delta.sh          # Beautiful diff
+    ├── lazygit.sh        # Visual Git
     ├── btop.sh           # System monitor
     └── neofetch.sh       # System info
 ```
 
 ---
 
-## Estrutura do Projeto
+## Project Structure
 
 ```
 terminal-customization/
 │
-├── install.sh              # Instalador principal
-├── custom-startup.sh       # Configurações de startup
+├── install.sh              # Main installer
+├── custom-startup.sh       # Startup configurations
 │
-├── core/                   # Bibliotecas core
-│   ├── colors.sh           # Definições de cores ANSI
-│   ├── ui.sh               # Componentes de UI
-│   ├── validators.sh       # Funções de validação
-│   ├── shell-config.sh     # Helpers de configuração shell
-│   └── installers.sh       # Wrappers de instalação
+├── core/                   # Core libraries
+│   ├── colors.sh           #    ANSI color definitions
+│   ├── ui.sh               #    UI components (headers, spinners)
+│   ├── validators.sh       #    Validation functions
+│   ├── shell-config.sh     #    Shell configuration helpers
+│   └── installers.sh       #    Installation wrappers
 │
-├── modules/                # Módulos de instalação
-│   ├── base/               # Componentes base
-│   ├── shell/              # Frameworks de shell
-│   ├── fonts/              # Fontes
-│   ├── prompt/             # Temas de prompt
-│   ├── plugins/            # Plugins ZSH
-│   └── utils/              # Utilitários CLI
+├── modules/                # Installation modules
+│   ├── base/               #    Base components
+│   ├── shell/              #    Shell frameworks
+│   ├── fonts/              #    Fonts
+│   ├── prompt/             #    Prompt themes
+│   ├── plugins/            #    ZSH plugins
+│   └── utils/              #    CLI utilities
 │
-├── themes/                 # Customização visual
-│   ├── ascii-art/          # Arte ASCII
-│   └── color-schemes/      # Esquemas de cores
+├── themes/                 # Visual customization
+│   ├── ascii-art/          #    ASCII art
+│   └── color-schemes/      #    Color schemes
 │
-└── docs/                   # Documentação
-    ├── MODULES.md          # Documentação detalhada
-    └── TROUBLESHOOTING.md  # Solução de problemas
+└── docs/                   # Documentation
+    ├── MODULES.md          #    Detailed documentation
+    └── TROUBLESHOOTING.md  #    Problem solving
 ```
 
 ---
 
-## Pós-Instalação
+## Post-Installation
 
-### 1. Reinicie o Terminal
-
+### 1. Restart Your Terminal
 ```bash
 source ~/.zshrc
-# ou simplesmente feche e abra novamente
+# or simply close and reopen
 ```
 
-### 2. Configure o Powerlevel10k
-
+### 2. Configure Powerlevel10k
 ```bash
 p10k configure
 ```
 
-### 3. Configure a Fonte no Terminal
+### 3. Configure Terminal Font
 
 **iTerm2:**
 1. `⌘,` → Preferences
 2. Profiles → Text → Font
-3. Selecione **MesloLGS NF**
+3. Select **MesloLGS NF**
 
 **Terminal.app:**
 1. `⌘,` → Preferences
 2. Profiles → Font → Change
-3. Selecione **MesloLGS NF**
+3. Select **MesloLGS NF**
 
 **VS Code Terminal:**
 ```json
@@ -630,33 +635,51 @@ p10k configure
 }
 ```
 
-### 4. (Opcional) Adicionar neofetch ao Startup
+---
 
-Para exibir informações do sistema ao abrir o terminal:
+## Requirements
 
+| Requirement | Minimum |
+|-------------|---------|
+| **System** | macOS 10.15 (Catalina)+ |
+| **Shell** | Bash 3.2+ (for installer) |
+| **Space** | ~500MB |
+| **Internet** | Required |
+
+---
+
+## Troubleshooting
+
+### Icons not showing
+→ Configure the **MesloLGS NF** font in your terminal
+
+### Unexpected colors
+→ Check if your terminal supports 256 colors:
 ```bash
-echo "neofetch" >> ~/.zshrc
+echo $TERM  # Should show xterm-256color
 ```
 
+### Command not found
+→ Reload your shell:
+```bash
+source ~/.zshrc
+```
+
+### View installation log
+```bash
+cat .install.log
+```
+
+For more issues, see [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
+
 ---
 
-## Requisitos
+## License
 
-| Requisito | Mínimo |
-|-----------|--------|
-| **Sistema** | macOS 10.15 (Catalina)+ |
-| **Shell** | Bash 3.2+ (para instalador) |
-| **Espaço** | ~500MB |
-| **Internet** | Necessária |
-
----
-
-## Licença
-
-MIT License - veja o arquivo [LICENSE](LICENSE) para detalhes.
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
 <p align="center">
-  <a href="#-dr-custom-terminal">⬆️ Voltar ao topo</a>
+  <a href="#dr-custom-terminal">Back to top</a>
 </p>
