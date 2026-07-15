@@ -149,6 +149,126 @@ clone() {
 
 # mkdir + cd
 mkcd() { mkdir -p "\$1" && cd "\$1"; }
+
+# Escreve/atualiza uma chave no arquivo .dr do diretorio atual (ecossistema dr)
+_dr_set() {
+    local key="\$1"; shift
+    local val="\$*"
+    local file=".dr"
+    if [[ -f "\$file" ]] && grep -q "^\${key}=" "\$file"; then
+        local tmp; tmp="\$(mktemp)"
+        sed "s|^\${key}=.*|\${key}=\${val}|" "\$file" > "\$tmp" && mv "\$tmp" "\$file"
+    else
+        echo "\${key}=\${val}" >> "\$file"
+    fi
+    _dr_gitignore
+}
+
+# Le uma chave do arquivo .dr do diretorio atual
+_dr_get() {
+    [[ -f .dr ]] || return 1
+    sed -n "s/^\$1=//p" .dr | head -1
+}
+
+# Garante que .dr esteja no .gitignore quando dentro de um repo git
+_dr_gitignore() {
+    git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return 0
+    local root; root="\$(git rev-parse --show-toplevel 2>/dev/null)" || return 0
+    local gi="\${root}/.gitignore"
+    if [[ ! -f "\$gi" ]] || ! grep -qxF ".dr" "\$gi"; then
+        echo ".dr" >> "\$gi"
+    fi
+}
+
+# Resolve o comando de dev pelo tipo de projeto (imprime o comando; 1 se nenhum)
+_dr_detect_run() {
+    if [[ -f package.json ]]; then
+        # Escolhe o package manager pelo lockfile mais recente (o ultimo usado)
+        local pm="" newest
+        newest="\$(ls -t bun.lockb bun.lock pnpm-lock.yaml yarn.lock package-lock.json 2>/dev/null | head -1)"
+        case "\$newest" in
+            bun.lockb|bun.lock) pm="bun" ;;
+            pnpm-lock.yaml)     pm="pnpm" ;;
+            yarn.lock)          pm="yarn" ;;
+            package-lock.json)  pm="npm" ;;
+        esac
+        # Se o pm detectado nao estiver instalado (ou nao houver lockfile),
+        # usa o primeiro package manager disponivel no sistema
+        if [[ -z "\$pm" ]] || ! command -v "\$pm" >/dev/null 2>&1; then
+            local cand
+            for cand in npm pnpm yarn bun; do
+                command -v "\$cand" >/dev/null 2>&1 && { pm="\$cand"; break; }
+            done
+        fi
+        [[ -z "\$pm" ]] && pm="npm"
+
+        local scripts=""
+        if command -v node >/dev/null 2>&1; then
+            scripts="\$(node -e 'const s=require("./package.json").scripts||{};process.stdout.write(Object.keys(s).join(" "))' 2>/dev/null)"
+        fi
+
+        if [[ -d src-tauri && " \$scripts " == *" tauri "* ]]; then
+            echo "\$pm run tauri dev"
+        elif [[ " \$scripts " == *" dev "* ]]; then
+            echo "\$pm run dev"
+        elif [[ " \$scripts " == *" start "* ]]; then
+            echo "\$pm run start"
+        else
+            return 1
+        fi
+        return 0
+    fi
+
+    [[ -f manage.py ]] && { echo "python3 manage.py runserver"; return 0; }
+
+    local entry
+    for entry in main.py app.py; do
+        [[ -f "\$entry" ]] && { echo "python3 \$entry"; return 0; }
+    done
+
+    [[ -f index.html ]] && { echo "python3 -m http.server 8000"; return 0; }
+
+    return 1
+}
+
+# Detecta o projeto e inicia o dev server; cacheia a escolha em .dr apos sucesso.
+# Uso: run           -> usa o cache .dr se existir, senao detecta
+#      run -r|--refresh -> ignora o cache e re-detecta
+#      run -w|--which   -> apenas imprime o comando que seria executado
+run() {
+    case "\${1:-}" in
+        -w|--which)
+            local shown; shown="\$(_dr_get run)"
+            [[ -n "\$shown" ]] && { echo "\$shown  (.dr)"; return 0; }
+            _dr_detect_run || { echo "run: tipo de projeto nao reconhecido" >&2; return 1; }
+            return 0
+            ;;
+        -r|--refresh) ;;
+        *)
+            local cached; cached="\$(_dr_get run)"
+            if [[ -n "\$cached" ]]; then
+                echo "run: \$cached  (.dr)"
+                eval "\$cached"
+                return \$?
+            fi
+            ;;
+    esac
+
+    local cmd
+    cmd="\$(_dr_detect_run)" || {
+        echo "run: tipo de projeto nao reconhecido (sem package.json, manage.py, *.py ou index.html)" >&2
+        return 1
+    }
+
+    echo "run: \$cmd"
+    eval "\$cmd"
+    local code=\$?
+    # 0 = terminou ok | 130 = SIGINT (Ctrl+C) | 143 = SIGTERM: o server subiu, cacheia
+    if [[ \$code -eq 0 || \$code -eq 130 || \$code -eq 143 ]]; then
+        _dr_set run "\$cmd"
+    fi
+    return \$code
+}
 ${MARKER_END}
 EOF
 }
@@ -233,6 +353,9 @@ configure() {
     echo -e "  ${BOLD}Funcoes${NC}"
     echo -e "    ${CYAN}clone <url>${NC}        git clone + cd para a pasta clonada"
     echo -e "    ${CYAN}mkcd <pasta>${NC}       mkdir -p + cd"
+    echo -e "    ${CYAN}run${NC}                detecta o projeto, inicia o dev server e cacheia em .dr"
+    echo -e "    ${CYAN}run -r${NC}             forca nova deteccao, ignorando o cache .dr"
+    echo -e "    ${CYAN}run -w${NC}             mostra o comando que seria executado"
     echo ""
 
     return 0
